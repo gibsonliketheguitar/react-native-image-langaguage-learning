@@ -15,4 +15,4 @@ web-build/
 
 # ignore all firebase rules and config
 *.json
-!spec/*.json
+!/firebase/firebase-config-example.json
