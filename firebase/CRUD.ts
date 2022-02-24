@@ -1,13 +1,9 @@
-import { getFirestoreDB as firestore } from "./firebase-admin";
+import { firestoreDB } from "./firebase-admin";
 import { collection, addDoc, getDocs, doc, setDoc } from "firebase/firestore";
-
-export interface IReadPath {
-  name: string;
-}
 
 //TODO set up emulator for these firebase functions
 export async function readCollection(name: any) {
-  const querySnapshot = await getDocs(collection(firestore, name));
+  const querySnapshot = await getDocs(collection(firestoreDB, name));
   querySnapshot.forEach((doc) => {
     console.log(`${doc.id} => ${doc.data()}`);
   });
@@ -18,7 +14,7 @@ export async function createNewCollection(
   data: { [key: string]: any }
 ) {
   try {
-    const docRef = await addDoc(collection(firestore, newCollectionName), {
+    const docRef = await addDoc(collection(firestoreDB, newCollectionName), {
       ...data,
     });
     //TODO create a general way to catch error
@@ -40,7 +36,7 @@ export async function setDocument({
   data,
 }: ISetDocument) {
   //this setDoc([query])
-  await setDoc(doc(firestore, collection, document), { ...data });
+  await setDoc(doc(firestoreDB, collection, document), { ...data });
 }
 
 //collection -> document -> collection -> document
