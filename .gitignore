@@ -15,6 +15,7 @@ web-build/
 
 # ignore all firebase rules and config
 *.json
+!*package.json
 !/firebase/firebase-config-example.json
 !/firebase/firebase.json
 !/firebase/firestore.indexes.json
