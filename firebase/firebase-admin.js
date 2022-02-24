@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { CACHE_SIZE_UNLIMITED, getFirestore } from "firebase/firestore";
+import {
+  //CACHE_SIZE_UNLIMITED,
+  connectFirestoreEmulator,
+  getFirestore,
+} from "firebase/firestore";
 
 //init firebase config
 const firebaseConfig = require("./firebase.config");
@@ -11,4 +15,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 //     cacheSizeBytes: CACHE_SIZE_UNLIMITED,
 // })
 
-export const getFirestoreDB = getFirestore();
+export const FirestoreDB = getFirestore();
+
+connectFirestoreEmulator(FirestoreDB, "localhost", 8080);
