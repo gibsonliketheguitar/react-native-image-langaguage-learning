@@ -1,31 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { createNewCollection, readCollection } from './firebase/CRUD';
-import Btn from './src/common/Btn';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
-  const [state, setState] = useState(false)
+import User from './src/screens/User';
+import Home from './src/screens/Home';
+import Logout from './src/screens/Logout';
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      {state && <Text>Deez Nuts</Text>}
-      <StatusBar style="auto" />
-      <Btn
-        title='hello'
-        handleOnPress={() => createNewCollection('users', { test: 'help' })}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="User" component={User} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Logout" component={Logout} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 20,
-    marginHorizontal: 28
-  },
-});
+export default App;
