@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { readCollection } from './firebase/CRUD';
+import { createNewCollection, readCollection } from './firebase/CRUD';
+import Btn from './src/common/Btn';
 
 export default function App() {
   const [state, setState] = useState(false)
@@ -10,9 +11,9 @@ export default function App() {
       <Text>Open up App.tsx to start working on your app!</Text>
       {state && <Text>Deez Nuts</Text>}
       <StatusBar style="auto" />
-      <Button
+      <Btn
         title='hello'
-        onPress={() => readCollection('users')}
+        handleOnPress={() => createNewCollection('users', { test: 'help' })}
       />
     </View>
   );
@@ -24,5 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: 20,
+    marginHorizontal: 28
   },
 });
