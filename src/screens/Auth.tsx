@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Btn from '../common/Btn';
-import { default as Modal } from '../components/RegisterModal'
+import { default as RegisterBtn } from '../components/RegisterModal'
 
 export default function Auth({ navigation }: any) {
-    const [modalVisible, setModalVisible] = useState(false);
     return (
         <View style={styles.container}>
             <Btn
                 title="Login"
-                handleOnPress={() => navigation.navigate('Logout')}
             />
-            <Modal isVisible={modalVisible} setVisible={setModalVisible} />
-            <Btn
-                title='Register'
-                handleOnPress={() => setModalVisible(true)}
-            />
+            <RegisterBtn />
         </View>
     );
 }

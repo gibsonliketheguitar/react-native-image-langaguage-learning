@@ -1,19 +1,20 @@
-import React from "react";
-import { Button, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import Btn from "../common/Btn";
 
-interface IRegisterModal {
-    isVisible: boolean,
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>,
-}
+export default function RegisterModal() {
+    const [isVisible, setVisible] = useState<boolean>(false);
 
-export default function RegisterModal({ isVisible, setVisible }: IRegisterModal) {
+    const handleOpen = () => {
+        setVisible(true)
+    }
 
     const handleClose = () => {
         setVisible(false)
     }
 
     return (
-        <View>
+        <>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -30,7 +31,11 @@ export default function RegisterModal({ isVisible, setVisible }: IRegisterModal)
                     </View>
                 </View>
             </Modal>
-        </View>
+            <Btn
+                title='Register'
+                handleOnPress={handleOpen}
+            />
+        </>
     )
 }
 
