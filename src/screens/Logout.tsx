@@ -1,14 +1,25 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { logout } from "../../firebase/userAuth";
+import * as RootNavigation from "../routes/RootNavigation";
 
 export default function Logout({ navigation }: any) {
+
+    const handleSignout = () => {
+        function onSuccess() {
+            RootNavigation.resetNav({
+                index: 0,
+                routes: [{ name: "Auth" }],
+            });
+        }
+        logout({ onSuccess })
+    }
     return (
         <View style={styles.container}>
             <Text>Logout</Text>
             <Button
                 title="Logout"
-                onPress={() => logout()}
+                onPress={handleSignout}
             />
         </View>
     )

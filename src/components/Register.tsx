@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Modal, StyleSheet, View } from "react-native";
+
 import { createNewUser } from "../../firebase/userAuth";
+import * as RootNavigation from "../routes/RootNavigation"
 
 import Btn from "../common/Btn";
 import Input from "../common/Input";
+import { useSnackbar } from "notistack";
 
 export default function Register() {
     const [isVisible, setVisible] = useState<boolean>(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleOpen = () => {
         setVisible(true)
@@ -25,7 +29,24 @@ export default function Register() {
         }
     });
     const onSubmit = async (data: any) => {
-        createNewUser({ payload: data })
+        function onSuccess() {
+            RootNavigation.resetNav({
+                index: 0,
+                routes: [{ name: "Home" }],
+            });
+        }
+        function onFail(error: string) {
+            enqueueSnackbar(
+                `Failed to register account: ${error}`,
+                {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'center'
+                    }
+                })
+        }
+        createNewUser({ data, onSuccess, onFail })
     }
 
     return (

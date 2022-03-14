@@ -1,11 +1,15 @@
+import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+
 import { loginExistingUser } from "../../firebase/userAuth";
+import * as RootNavigation from "../routes/RootNavigation"
 
 import Btn from "../common/Btn";
 import Input from "../common/Input";
 
 export default function Login() {
+    const { enqueueSnackbar } = useSnackbar();
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             email: '',
@@ -13,7 +17,26 @@ export default function Login() {
         }
     });
     const onSubmit = async (data: any) => {
-        loginExistingUser({ payload: data })
+        function onSuccess() {
+            RootNavigation.resetNav({
+                index: 0,
+                routes: [{ name: "Home" }],
+            });
+        }
+        function onFail() {
+            enqueueSnackbar(
+                'Please check your login credentials',
+                {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'center'
+                    }
+                }
+            )
+        }
+
+        await loginExistingUser({ data, onSuccess, onFail })
     }
     return (
         <>

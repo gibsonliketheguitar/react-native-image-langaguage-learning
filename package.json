@@ -14,12 +14,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
     "firebase": "^9.6.8",
     "jotai": "^1.6.1",
+    "notistack": "^1.0.10",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^7.28.0",
