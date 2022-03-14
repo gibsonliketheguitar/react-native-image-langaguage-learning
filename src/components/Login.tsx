@@ -24,6 +24,7 @@ export default function Login() {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <Input
+                        label="Email"
                         error={errors.email}
                         onBlur={onBlur}
                         onChange={onChange}
@@ -40,6 +41,7 @@ export default function Login() {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <Input
+                        label="Password"
                         error={errors.password}
                         onBlur={onBlur}
                         onChange={onChange}

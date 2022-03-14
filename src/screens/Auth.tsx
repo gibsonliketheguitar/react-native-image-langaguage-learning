@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Login from '../components/Login'
-import { default as RegisterBtn } from '../components/RegisterModal'
+import { default as RegisterBtn } from '../components/Register'
 
 export default function Auth() {
     return (
