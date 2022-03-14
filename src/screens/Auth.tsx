@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Btn from '../common/Btn';
+import Login from '../components/Login'
 import { default as RegisterBtn } from '../components/RegisterModal'
 
-export default function Auth({ navigation }: any) {
+export default function Auth() {
     return (
         <View style={styles.container}>
-            <Btn
-                title="Login"
-            />
+            <Login />
             <RegisterBtn />
         </View>
     );

@@ -1,13 +1,8 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  connectAuthEmulator,
-} from "firebase/auth";
+import { auth } from "./firebase-admin";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const auth = getAuth();
+//console.log("what is result", result);
 
-const result = connectAuthEmulator(auth, "http://localhost:9099");
-console.log("what is result", result);
 interface ILogin {
   payload: { [key: string]: string };
   onSuccess?: () => void;
@@ -15,7 +10,7 @@ interface ILogin {
 }
 
 export async function createNewUser({ payload, onSuccess, onFail }: ILogin) {
-  const { email, password } = payload;
+  const { email, password }: any = payload;
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {
       const user = userCredentials.user;
@@ -33,7 +28,7 @@ export async function loginExistingUser({
   onSuccess,
   onFail,
 }: ILogin) {
-  const { email, password } = payload;
+  const { email, password }: any = payload;
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in

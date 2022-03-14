@@ -1,4 +1,5 @@
 import { initializeApp, getApp } from "firebase/app";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
 import {
   //CACHE_SIZE_UNLIMITED,
   connectFirestoreEmulator,
@@ -22,6 +23,5 @@ connectFirestoreEmulator(firestoreDB, "localhost", 8080);
 const functions = getFunctions(getApp());
 connectFunctionsEmulator(functions, "localhost", 5001);
 
-/**
- *  TODO turn off emulator
- */
+export const auth = getAuth();
+connectAuthEmulator(auth, "http://localhost:9099");
