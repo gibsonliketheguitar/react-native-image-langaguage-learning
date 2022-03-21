@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useSnackbar } from "notistack";
-import { getUserDoc, readCollection } from "../../firebase/CRUD";
+import { createNewCollection, getUserDoc } from "../../firebase/CRUD";
+import Btn from "../common/Btn";
 
 export default function Home({ navigation }: any) {
     const { enqueueSnackbar } = useSnackbar();
@@ -24,22 +25,31 @@ export default function Home({ navigation }: any) {
         }
 
         getUserDoc({
-            userId: 'K0gMsV1uSDeYtCRILZiG6RIFiD3G',
             onSuccess,
             onFail,
+        })
+    }
+
+    const handleCreateNewStudy = () => {
+        createNewCollection('collections', {
+            default: 'Hello World'
         })
     }
 
     return (
         <View style={styles.container}>
             <Text>Home</Text>
-            <Button
-                title="Read"
-                onPress={handleReadUserDoc}
+            <Btn
+                title="Create New Study"
+                handleOnPress={handleCreateNewStudy}
             />
-            <Button
+            <Btn
+                title="Read"
+                handleOnPress={handleReadUserDoc}
+            />
+            <Btn
                 title="Logout"
-                onPress={() => navigation.navigate('Logout')}
+                handleOnPress={() => navigation.navigate('Logout')}
             />
         </View>
     )

@@ -1,4 +1,4 @@
-import { firestoreDB } from "./firebase-admin";
+import { auth, firestoreDB } from "./firebase-admin";
 import {
   collection,
   addDoc,
@@ -7,26 +7,19 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { USERS } from "../src/constants/firebase";
+import { COLLECTION, USERS } from "../src/constants/firebase";
 
 //TODO set up emulator for these firebase functions
-export async function readCollection(name: any) {
-  try {
-    const querySnapshot = await getDocs(collection(firestoreDB, name));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
-  } catch (error) {}
-}
+export async function readCollection() {}
 
 interface IGetUserDoc {
-  userId: string;
   onSuccess?: (data?: any) => void;
   onFail?: (error: string) => void;
 }
 
-export async function getUserDoc({ userId, onSuccess, onFail }: IGetUserDoc) {
+export async function getUserDoc({ onSuccess, onFail }: IGetUserDoc) {
   try {
+    const userId = auth.currentUser?.uid as string;
     const docRef = doc(firestoreDB, USERS, userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) onSuccess?.(docSnap.data());
@@ -42,13 +35,13 @@ export async function createNewCollection(
   data: { [key: string]: any }
 ) {
   try {
-    const docRef = await addDoc(collection(firestoreDB, newCollectionName), {
-      ...data,
+    const userId = auth.currentUser?.uid as string;
+    const collectionRef = collection(firestoreDB, USERS, userId, COLLECTION);
+    const docRef = await addDoc(collectionRef, {
+      default: "hello world",
     });
-    //TODO create a general way to catch error
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
+  } catch (error) {
+    console.log(error);
   }
 }
 
