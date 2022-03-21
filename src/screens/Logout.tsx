@@ -3,8 +3,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { logout } from "../../firebase/userAuth";
 import * as RootNavigation from "../routes/RootNavigation";
 
-export default function Logout({ navigation }: any) {
-
+export default function Logout() {
     const handleSignout = () => {
         function onSuccess() {
             RootNavigation.resetNav({

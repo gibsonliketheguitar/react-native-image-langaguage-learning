@@ -6,6 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import * as RootNavigation from "../src/routes/RootNavigation";
+import { setDocument } from "./CRUD";
 
 interface ILogin {
   data: { [key: string]: string };
@@ -21,6 +22,20 @@ export async function createNewUser({ data, onSuccess, onFail }: ILogin) {
       email,
       password
     );
+
+    await setDocument({
+      collection: "users",
+      document: user.uid,
+      data: {
+        premium: {},
+        settings: {},
+        meta: {
+          createdOn: Date.now(),
+          lastActive: Date.now(),
+        },
+      },
+    });
+
     onSuccess?.();
   } catch (error: any) {
     onFail?.(error.code);
@@ -56,7 +71,6 @@ export async function logout({ onSuccess, onFail }: ILogout) {
  */
 export async function listenAuthChange() {
   onAuthStateChanged(auth, (user) => {
-    console.log(user);
     if (user != null) {
       RootNavigation.resetNav({
         index: 0,
