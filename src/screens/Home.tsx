@@ -47,10 +47,6 @@ export default function Home({ navigation }: any) {
                 title="Read"
                 handleOnPress={handleReadUserDoc}
             />
-            <Btn
-                title="Logout"
-                handleOnPress={() => navigation.navigate('Logout')}
-            />
         </View>
     )
 }

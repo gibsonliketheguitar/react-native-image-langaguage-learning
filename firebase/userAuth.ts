@@ -66,16 +66,13 @@ export async function logout({ onSuccess, onFail }: ILogout) {
   }
 }
 
-/**
- *  If user is already loged in. Navigate to Home Page
- */
-export async function listenAuthChange() {
+export function listenToAuthAnd(
+  setState: React.Dispatch<React.SetStateAction<Boolean>>
+) {
+  const check = auth.currentUser?.uid;
   onAuthStateChanged(auth, (user) => {
-    if (user != null) {
-      RootNavigation.resetNav({
-        index: 0,
-        routes: [{ name: "Home" }],
-      });
-    }
+    setState(() => {
+      return user != null ? true : false;
+    });
   });
 }
